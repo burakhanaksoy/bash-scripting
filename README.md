@@ -19,6 +19,9 @@
 [Conditional Statements](#conditional-statements)
 [Loops](#loops)
 [Exit Status](#exit)
+[Script Input](#script-input)
+[Script Output](#script-output)
+[Pipes](#pipes)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -455,6 +458,24 @@ done
 <img width="450" alt="Screen Shot 2021-07-17 at 5 56 52 PM" src="https://user-images.githubusercontent.com/31994778/126040881-5e0dc28c-76bd-4b8f-a437-d827d5167d0c.png">
 </p>
 
+```bash
+for i in {0..20}; do
+	echo ${i}
+done
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 6 17 00 PM" src="https://user-images.githubusercontent.com/31994778/126041477-40d79005-2522-4899-be01-6c73671ddbfc.png">
+</p>
+
+<b>Syntax</b>
+
+```bash
+for i in {start..stop..step}; do
+	echo ${i}
+done
+```
+
 <h3>Until</h3>
 
 Very similar to While
@@ -567,3 +588,106 @@ fi
 </p>
 	
 	
+---
+
+<div id="script-input">
+<h2>Script Input</h2>
+</div>
+
+```bash
+echo $1 $2 $3
+```
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 7 17 05 PM" src="https://user-images.githubusercontent.com/31994778/126043237-68f562e1-239b-472a-a400-932aadd9c4a7.png">
+</p>
+
+<h3>$@</h3>
+
+Can take unlimited args
+
+```bash
+args=($@)
+
+echo $@
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 7 17 05 PM" src="https://user-images.githubusercontent.com/31994778/126043280-87460544-4e95-42c8-bca9-41b0844e390b.png">
+</p>
+
+```bash
+args=($@)
+
+echo ${args[0]} ${args[1]} ${args[2]}
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 7 17 05 PM" src="https://user-images.githubusercontent.com/31994778/126043445-a9ee4366-3f8c-49b1-96fd-a9b68549bce0.png">
+</p>
+
+```bash
+args=($@)
+
+echo $@
+echo $#
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 7 29 27 PM" src="https://user-images.githubusercontent.com/31994778/126043557-eeebe620-7a18-46bd-9aba-bf09825a6694.png">
+</p>
+
+<h3>Reading a File With STDIN</h3>
+
+```bash
+while read line; do
+	echo "$line"
+done < ${1:-/dev/stdin}
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 7 38 02 PM" src="https://user-images.githubusercontent.com/31994778/126043790-80c96558-7061-40a4-a573-e5f10520cbdc.png">
+</p>
+
+---
+
+<div id="script-output">
+<h2>Script Output</h2>
+</div>
+
+<h3>Redirecting Output to a File</h3>
+
+```bash
+ls -la > file1.txt
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 7 54 22 PM" src="https://user-images.githubusercontent.com/31994778/126044274-68d72b80-423a-460f-8bd5-690118d79dd1.png">
+</p>
+
+<h3>Filtering and Redirecting STDOUT and STDERR</h3>
+
+```bash
+ls +la 1>file1.txt 2>file2.txt
+```
+
+This means that redirect STDOUT to file1.txt and redirect STDERR to file2.txt
+
+Since `ls +a` doesn't exist, it will redirect STDERR to file2.txt and redirect nothing to file1.txt
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 7 59 54 PM" src="https://user-images.githubusercontent.com/31994778/126044412-8599ef62-2f54-4670-9a22-8a30aeba4fbc.png">
+</p>
+
+<h3>Redirecting STDOUT and STDERR to the Same File</h3>
+
+```bash
+ls -al >& file1.txt
+```
+
+Redirects both STDOUT and STDERR to file1.txt
+
+---
+
+<div id="pipes">
+<h2>Pipes</h2>
+</div>
