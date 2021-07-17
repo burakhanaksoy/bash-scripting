@@ -17,6 +17,8 @@
 [Running Shell Scripts](#running-shell-scripts)
 [comments](#comments)
 [Conditional Statements](#conditional-statements)
+[Loops](#loops)
+[Exit Status](#exit)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -208,12 +210,22 @@ echo "Written inside file4.txt from file3.txt" > file4.txt
   <h3>Syntax</h3>
   
   ```bash
-  if [condition] ; then
+  if [ condition ] ; then
   
   Command(s)
   
   fi
   ```
+
+We can also use `(( ))` instead of `[ ]`. For example,
+
+```bash
+if (( condition )) ; then
+  
+  Command(s)
+  
+  fi
+```
   
   say that we have the following snippet:
   
@@ -369,6 +381,96 @@ echo "grade: $grade"
   </p>
   
   ---
-  
-  
-  
+	
+<div id="loops">
+	
+ <h2>Loops</h2>  
+	
+</div>
+
+<h3>While</h3>
+	
+	
+<b>Syntax</b>
+	
+	
+```bash
+while [ condition ]
+do
+	#Do something
+done
+```
+
+Example:
+	
+```bash
+number=1
+
+while [ $number -lt 10 ]
+do
+	echo "$number"
+	number=$((number+1))
+done
+```
+	
+<p align="center">
+	<img width="450" alt="Screen Shot 2021-07-17 at 2 03 22 PM" src="https://user-images.githubusercontent.com/31994778/126034905-3b832e75-000a-4374-a222-1f388e8d1c50.png">
+	</p>
+
+---
+	
+<div id="exit">
+<h2>Exit Status</h2>
+</div>
+
+<b><i>"When a bash command is executed, it leaves behind the exit code, irrespective of successful or unsuccessful execution. Examining the exit code can offer useful insight into the behavior of the last-run command."</b></i>
+	
+```
+Every UNIX/Linux command executed by the shell script or user leaves an exit status.
+	
+It’s an integer number that remains unchanged unless the next command is run.
+
+If the exit code is 0, then the command was successful. If the exit code is non-zero (1-255),
+	
+then it signifies an error.
+```
+
+In the case of bash, the exit code of the previous command is accessible using the shell variable “$?”.
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 2 18 18 PM" src="https://user-images.githubusercontent.com/31994778/126035222-2dc7bfd5-772e-4105-b1c5-40aea026fa68.png">	
+</p>
+	
+  <div align="center">
+    
+  <b>Summary</b> | 
+------------ |
+1- Every Linux or Unix command executed by the shell script or user, has an exit status.
+2- The exit status is an integer number.
+3- For the bash shell’s purposes, a command which exits with a zero (0) exit status has succeeded.
+4- A non-zero (1-255) exit status indicates failure.
+5- If a command is not found, the child process created to execute it returns a status of 127. If a command is found but is not executable, the return status is 126.
+6- All of the Bash builtins return exit status of zero if they succeed and a non-zero status on failure.
+  </div>
+	
+Example:
+	
+```bash
+# Analyzes whether the run command 
+# executed successfully or not
+
+adasads
+
+status=$?
+
+if [ $status -eq 0 ] ; then
+	echo "Command executed successfully..."
+else
+	echo "Command failed to execute..."
+fi
+```
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 2 34 17 PM" src="https://user-images.githubusercontent.com/31994778/126035560-b8eeb3c0-0368-46e2-aef6-d0d7f5882e16.png">
+</p>
+	
+	
