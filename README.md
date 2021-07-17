@@ -444,6 +444,16 @@ for (( n=0; n<5; n++ )); do
 	echo "$n"
 done
 ```
+		 
+```bash
+for i in 1 2 3 4 5; do
+	echo ${i}
+done
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 5 56 52 PM" src="https://user-images.githubusercontent.com/31994778/126040881-5e0dc28c-76bd-4b8f-a437-d827d5167d0c.png">
+</p>
 
 <h3>Until</h3>
 
@@ -460,6 +470,44 @@ done
 
 <p align="center">
 <img width="450" alt="Screen Shot 2021-07-17 at 3 03 52 PM" src="https://user-images.githubusercontent.com/31994778/126036284-8c3825b1-a7fc-4943-bf44-e0543ce972ab.png">
+</p>
+
+
+<h3>Break</h3>
+
+```bash
+numbers=(1 2 4 8 16 32 64 128)
+
+for t in ${numbers[@]}; do
+    if [ $t -eq 64 ]; then
+    	echo "Broke out!"
+        break
+    fi
+    echo "Number: " + $t
+done
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 6 07 08 PM" src="https://user-images.githubusercontent.com/31994778/126041160-c84e1e7b-d0c0-45cd-848a-705c7c44aaf0.png">
+
+</p>
+
+<h3>Continue</h3>
+
+```bash
+numbers=(1 2 4 8 16 32 64 128)
+
+for t in ${numbers[@]}; do
+    if [ $t -eq 64 ]; then
+    	echo "skipping 64!"
+        continue
+    fi
+    echo "Number: " + $t
+done
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 6 08 22 PM" src="https://user-images.githubusercontent.com/31994778/126041201-c7a4ec09-1745-49f9-bd0e-a1c458fce32d.png">
 </p>
 
 ---
