@@ -416,6 +416,51 @@ done
 <p align="center">
 	<img width="450" alt="Screen Shot 2021-07-17 at 2 03 22 PM" src="https://user-images.githubusercontent.com/31994778/126034905-3b832e75-000a-4374-a222-1f388e8d1c50.png">
 	</p>
+	
+<h3>For</h3>
+
+For loop has two syntaxes
+
+1- 
+
+```bash
+	
+for (( expr1 ; expr2 ; expr3 )) ; do commands ; done
+	
+```
+	
+2- 
+
+```bash
+	
+for name [ [in [words …] ] ; ] do commands; done
+	
+```
+
+Example:
+	
+```bash
+for (( n=0; n<5; n++ )); do
+	echo "$n"
+done
+```
+
+<h3>Until</h3>
+
+Very similar to While
+
+```bash
+let n=0
+
+until [ "$n" -eq 5 ]; do
+    echo $n
+    ((++n))
+done
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-17 at 3 03 52 PM" src="https://user-images.githubusercontent.com/31994778/126036284-8c3825b1-a7fc-4943-bf44-e0543ce972ab.png">
+</p>
 
 ---
 	
