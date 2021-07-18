@@ -26,6 +26,7 @@
 [Numbers](#numbers)
 [Declare Command](#declare)
 [Arrays](#arrays)
+[Functions](#functions)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -1043,3 +1044,94 @@ echo $filePath
 <h2>Arrays</h2>
 </div>
 
+```bash
+cars=("BMW" "TOYOTA" "HONDA")
+
+echo "${cars[@]}" # BMW TOYOTA HONDA
+
+echo "${cars[0]}" # BMW
+
+echo "${!cars[@]}" # 0 1 2
+
+echo "${#cars}" # 3
+```
+
+`!` prints indexes, `#` prints length, `@` is used to print every element in the array.
+
+<h3>Delete Array Element with Unset</h3>
+
+```bash
+cars=("BMW" "TOYOTA" "HONDA")
+
+# Find "HONDA" and delete it from the array
+for (( i=0; i<$((${#cars})); ++i )); do
+	# echo ${cars[0]}
+    if [ ${cars[i]} == "HONDA" ]    	
+    then
+        unset cars[i]
+    fi
+done
+
+    echo ${cars[@]}
+```
+
+Prints
+
+```
+BMW TOYOTA
+```
+
+<h3>Adding Element to the Array</h3>
+
+```bash
+cars=("BMW" "TOYOTA" "HONDA")
+
+# Find "HONDA" and change it with "MAZDA"
+for (( i=0; i<$((${#cars})); ++i )); do
+	# echo ${cars[0]}
+    if [ ${cars[i]} == "HONDA" ]    	
+    then
+        unset cars[i]
+	cars[i]="MAZDA"
+    fi
+done
+
+    echo ${cars[@]}
+```
+
+Prints
+
+```
+BMW TOYOTA MAZDA
+```
+
+<h3>Appending an Element to an Array</h3>
+
+<h4>Syntax</h4>
+
+```bash
+array+=(elementToBeAdded)
+```
+
+```bash
+arr=('HONDA' 'MAZDA' 'SUBARU')
+
+echo ${arr[@]}
+
+arr+=('BMW')
+
+echo ${arr[@]}
+```
+
+Prints
+
+```
+HONDA MAZDA SUBARU
+HONDA MAZDA SUBARU BMW
+```
+
+---
+
+<div id="functions">
+<h2>Functions</h2>
+</div>
