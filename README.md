@@ -891,5 +891,41 @@ yz
 z
 ```
 
+<h3>Transforming Uppercase</h3>
+
+<h4>Syntax</h4>
+
+```bash
+${string^^}
+```
+
+This syntax makes all letters upper-case
+
+```bash
+string="Hello World"
+
+echo ${string^^} # HELLO WORLD
+```
+
+<h3>Transforming Lowercase</h3>
+
+<h4>Syntax</h4>
+
+```bash
+${string,,}
+```
+
+This syntax makes all letters lower-case
+
+```bash
+string="HELLO WORLD"
+
+echo ${string,,} # hello world
+```
+
+
+
+
+
 ---
 
