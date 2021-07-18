@@ -24,6 +24,7 @@
 [Pipes](#pipes)
 [Strings](#strings)
 [Numbers](#numbers)
+[Declare Command](#declare)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -928,5 +929,77 @@ echo ${string,,} # hello world
 
 <div id="numbers">
 <h2>Numbers</h2>
+</div>
+
+In bash, we cannot add two numbers in their raw form, e.g.,
+
+```bash
+echo 31+21 # 31+21
+```
+
+As you see, it prints `31+21`. To actually print calculated version, we need to do
+
+```bash
+echo $((31+21)) # 52
+```
+
+We can do division, subtraction, addition, multiplication, remainder.
+
+We can also use the following syntax
+
+```bash
+echo $(expr 31 + 21 ) # 52
+```
+
+`NOTE:` We need to use escape character for multiplication, e.g.,
+
+```bash
+echo $(expr 31 \* 21 ) # 651
+```
+
+<h3>Converting HEX to Decimal</h3>
+
+```bash
+echo "Please enter a HEX number:"
+
+read number
+
+echo -n "The decimal value of $number is: "
+
+echo "obase=10; ibase=16; $number" | bc
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-18 at 5 23 33 PM" src="https://user-images.githubusercontent.com/31994778/126070858-607c7d87-ab51-4f9a-830e-0c1d107fd28d.png">
+</p>
+
+Here, bc is the built in calculator.
+
+<b><i>"Linux or Unix operating system provides the bc command and expr command for doing arithmetic calculations."</i></b>
+
+<b><i>"ibase and obase define the conversion base for input and output numbers. The default for both input and output is base 10."</i></b>
+
+With this information, let's convert decimal to binary...
+
+```bash
+echo "Please enter a Decimal number:"
+
+read number
+
+echo -n "The decimal value of $number is: "
+
+echo "obase=2; $number" | bc
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-18 at 5 36 30 PM" src="https://user-images.githubusercontent.com/31994778/126071318-c75b586b-7971-4ab7-884b-5b2353871b73.png">
+</p>
+
+Here, I didn't write `ibase=10;` since both obase and ibase are 10 by default.
+
+---
+
+<div id="declare">
+<h2>Declare Command</h2>
 </div>
 
