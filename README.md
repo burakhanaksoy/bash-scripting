@@ -25,6 +25,7 @@
 [Strings](#strings)
 [Numbers](#numbers)
 [Declare Command](#declare)
+[Arrays](#arrays)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -1001,5 +1002,44 @@ Here, I didn't write `ibase=10;` since both obase and ibase are 10 by default.
 
 <div id="declare">
 <h2>Declare Command</h2>
+</div>
+
+In my opinion, declare command is not very useful except for declaring immutable variables.
+
+For example:
+
+```bash
+declare -r myImmutableVar=11
+
+echo $myImmutableVar
+
+myImmutableVar=12
+
+echo $myImmutableVar
+```
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-18 at 6 18 45 PM" src="https://user-images.githubusercontent.com/31994778/126072618-7af4455e-1929-48f6-934d-4edf9ed772df.png">
+</p>
+
+In the case below, it might be pretty useful
+
+```bash
+declare -r filePath=/etc/dev
+
+echo $filePath
+
+filePath=/etc/bin
+
+echo $filePath
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-18 at 6 20 24 PM" src="https://user-images.githubusercontent.com/31994778/126072688-d638133b-5482-4902-8280-987c32ea9b85.png">
+</p>
+
+---
+
+<div id="arrays">
+<h2>Arrays</h2>
 </div>
 
