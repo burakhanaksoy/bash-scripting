@@ -23,6 +23,7 @@
 [Script Output](#script-output)
 [Pipes](#pipes)
 [Strings](#strings)
+[Numbers](#numbers)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -923,9 +924,9 @@ string="HELLO WORLD"
 echo ${string,,} # hello world
 ```
 
-
-
-
-
 ---
+
+<div id="numbers">
+<h2>Numbers</h2>
+</div>
 
