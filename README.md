@@ -22,6 +22,7 @@
 [Script Input](#script-input)
 [Script Output](#script-output)
 [Pipes](#pipes)
+[Strings](#strings)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -691,3 +692,204 @@ Redirects both STDOUT and STDERR to file1.txt
 <div id="pipes">
 <h2>Pipes</h2>
 </div>
+
+What is meant by "Pipes" is using a variable of one .sh file inside another .sh file.
+
+In other words, injecting variable(s) from one .sh file to another.
+
+Let's create two files, `file1.sh` and `file2.sh`
+
+file1.sh
+
+```bash
+MESSAGE="This message is injected inside file2.sh"
+
+export MESSAGE
+./file2.sh
+```
+
+file2.sh
+
+```bash
+echo "$MESSAGE"
+```
+
+Run `sh file1.sh`
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-18 at 8 43 05 AM" src="https://user-images.githubusercontent.com/31994778/126057075-e974218c-3690-47a7-b054-6fa596fe085d.png">
+</p>
+
+`NOTE:` when we want to run this file with `./file1.sh` we will get "permission denied" message. To fix it, we run `chmod +x file1.sh`.
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-18 at 8 47 06 AM" src="https://user-images.githubusercontent.com/31994778/126057145-c94c0e9b-a3c3-4bf0-a15f-eb57c296b950.png">
+</p>
+
+---
+
+<div id="strings">
+<h2>Strings</h2>
+</div>
+
+<h3>Concatenate Strings</h3>
+
+<h4>Direct Concatenation</h4>
+
+```bash
+stringOne="Hello"
+stringTwo="World"
+stringThree=${stringOne}" "${stringTwo}
+
+echo $stringThree
+```
+
+Prints
+
+```bash
+⬢  Desktop  sh concatenate.sh 
+Hello World
+```
+
+<h4>Concatenating Through Array</h4>
+
+```bash
+stringOne="Hello"
+stringTwo="World"
+
+stringThree=(${stringOne} ${stringTwo});
+
+echo ${stringThree[@]}
+```
+
+Prints
+
+```bash
+⬢  Desktop  sh concatenate.sh 
+Hello World
+```
+
+<h3>Slicing Strings</h3>
+
+<h4>Syntax</h4>
+
+```bash
+string:$[integer]
+```
+
+Returns string content starting from "integer" until end.
+
+```bash
+string="Hello World"
+  
+slicedString=${string:$[5]}
+
+echo $slicedString
+```
+
+Prints `World`
+
+<h4>Slicing with Negative Number</h4>
+
+We can also slice a string with a negative number. For example `${string:$[-${#string}]}` would return the whole string..
+
+```bash
+string="Hello World"
+  
+slicedString=${string:$[-${#string}]}
+
+echo $slicedString
+```
+
+Prints `Hello World`
+
+<h3>Slicing From Anywhere</h3>
+
+<h4>Syntax</h4>
+
+`${string:startVal:endVal}`
+
+```bash
+string="Hello World"
+  
+slicedString=${string:0:5}
+
+echo $slicedString
+```
+
+Prints `Hello`
+
+Note that endVal is not included. Think of it as [startVal:endVal).
+
+<h3>Shifting Strings</h3>
+
+```bash
+string="abcdefghijklmnopqrstuvwxyz"
+
+for i in $(seq 0 $(( ${#string} - 1 )));
+do
+echo ${string:$[-i]}
+done
+
+for i in $(seq 0 $(( ${#string} - 1 )));
+do
+echo ${string:$[i]}
+done
+```
+
+```
+z
+yz
+xyz
+wxyz
+vwxyz
+uvwxyz
+tuvwxyz
+stuvwxyz
+rstuvwxyz
+qrstuvwxyz
+pqrstuvwxyz
+opqrstuvwxyz
+nopqrstuvwxyz
+mnopqrstuvwxyz
+lmnopqrstuvwxyz
+klmnopqrstuvwxyz
+jklmnopqrstuvwxyz
+ijklmnopqrstuvwxyz
+hijklmnopqrstuvwxyz
+ghijklmnopqrstuvwxyz
+fghijklmnopqrstuvwxyz
+efghijklmnopqrstuvwxyz
+defghijklmnopqrstuvwxyz
+cdefghijklmnopqrstuvwxyz
+bcdefghijklmnopqrstuvwxyz
+abcdefghijklmnopqrstuvwxyz
+bcdefghijklmnopqrstuvwxyz
+cdefghijklmnopqrstuvwxyz
+defghijklmnopqrstuvwxyz
+efghijklmnopqrstuvwxyz
+fghijklmnopqrstuvwxyz
+ghijklmnopqrstuvwxyz
+hijklmnopqrstuvwxyz
+ijklmnopqrstuvwxyz
+jklmnopqrstuvwxyz
+klmnopqrstuvwxyz
+lmnopqrstuvwxyz
+mnopqrstuvwxyz
+nopqrstuvwxyz
+opqrstuvwxyz
+pqrstuvwxyz
+qrstuvwxyz
+rstuvwxyz
+stuvwxyz
+tuvwxyz
+uvwxyz
+vwxyz
+wxyz
+xyz
+yz
+z
+```
+
+---
+
