@@ -1321,3 +1321,27 @@ For reference, [Click Here](https://mywiki.wooledge.org/IFS#:~:text=The%20IFS%20
 </div>
 
 <b><i>"cURL is a computer software project providing a library and command-line tool for transferring data using various network protocols. The name stands for "Client URL", which was first released in 1997."</b></i>
+
+```bash
+url="http://ipv4.download.thinkbroadband.com:8080/5MB.zip"
+
+curl ${url} > outputFile
+```
+
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-20 at 12 23 37 PM" src="https://user-images.githubusercontent.com/31994778/126297076-64863c1a-e58f-4078-8c0c-a118d4f18ae3.png">
+</p>
+
+To get the information about file and headers, we can use `-I` flag
+
+```bash
+url="http://ipv4.download.thinkbroadband.com:8080/5MB.zip"
+
+curl -I ${url}
+```
+
+<p align="center">
+	<img width="450" alt="Screen Shot 2021-07-20 at 12 27 00 PM" src="https://user-images.githubusercontent.com/31994778/126298849-d126ee2a-aa64-40d0-ba77-8612961cc75a.png">
+</p>
+
+
