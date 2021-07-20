@@ -1595,4 +1595,24 @@ grep -C <N> “string” filename
 ```
 	
 <h3>Highlighting the Search</h3>
+
+<h4>Syntax</h4>
+	
+```bash	
+grep “string” filename --color
+```
+	
+<div align="center">
+<img width="450" alt="Screen Shot 2021-07-20 at 8 17 26 PM" src="https://user-images.githubusercontent.com/31994778/126367642-796d3a12-11d2-4a92-99a6-f108f9e06036.png">
+</div>
+	
+<h3>Counting How Many Matches</h3>
+	
+<h4>Syntax</h4>
+	
+```bash
+grep –c “string” filename
+```
+	
+
 	
