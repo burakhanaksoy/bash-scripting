@@ -1322,6 +1322,10 @@ For reference, [Click Here](https://mywiki.wooledge.org/IFS#:~:text=The%20IFS%20
 
 <b><i>"cURL is a computer software project providing a library and command-line tool for transferring data using various network protocols. The name stands for "Client URL", which was first released in 1997."</b></i>
 
+<h3>Three Ways to Curl in Bash</h3>
+
+<h4>Downloading Files</h4>
+
 ```bash
 url="http://ipv4.download.thinkbroadband.com:8080/5MB.zip"
 
@@ -1332,7 +1336,89 @@ curl ${url} > outputFile
 <img width="450" alt="Screen Shot 2021-07-20 at 12 23 37 PM" src="https://user-images.githubusercontent.com/31994778/126297076-64863c1a-e58f-4078-8c0c-a118d4f18ae3.png">
 </p>
 
-To get the information about file and headers, we can use `-I` flag
+<h4>-o Usage</h4>
+
+`-o` or `--output` flags are used to write output to <file> instead of stdout.
+	
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-20 at 3 06 27 PM" src="https://user-images.githubusercontent.com/31994778/126321011-7772d7ae-ed87-4fdf-9277-2242a4b17c74.png">	
+</p>
+
+<h3>Including HTTP Header Information in the Output</h3>
+	
+To do that, we use `--include` flag, for example `curl --include https://api.github.com/users/burakhanaksoy`.
+	
+<p align="center">
+<img width="450" alt="Screen Shot 2021-07-20 at 3 29 47 PM" src="https://user-images.githubusercontent.com/31994778/126324139-9e19acc4-b62e-4c54-bcd5-e84cb5a8994b.png">
+</p>
+	
+<h3>POST Requests</h3>
+	
+Use the --request (-X) flag along with --data (-d) to POST data.
+
+```bash
+url="https://reqres.in/api/register"
+
+curl -X POST -d '{ "email": "eve.holt@reqres.in", "password": "cityslicka" }' -H "Content-Type: application/json" --include ${url} > result.txt
+```
+
+Inside result.txt
+
+```
+HTTP/2 200 
+date: Tue, 20 Jul 2021 12:54:46 GMT
+content-type: application/json; charset=utf-8
+content-length: 36
+x-powered-by: Express
+access-control-allow-origin: *
+etag: W/"24-4iP0za1geN2he+ohu8F0FhCjLks"
+via: 1.1 vegur
+cf-cache-status: DYNAMIC
+expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=AwzSMPs8Vvt4EFkRZwsWBTS41%2F87HLdLDY%2BqU07jLPGSVywCKdkQmqzPs8Y0YkTgafUATtHP8kfdnvnDpswDbDXYQ3XXteS6cN8vhEq%2FIJLxpTmpRFj3SGqRmy0%3D"}],"group":"cf-nel","max_age":604800}
+nel: {"report_to":"cf-nel","max_age":604800}
+server: cloudflare
+cf-ray: 671c570e1f1cfd11-OTP
+alt-svc: h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400, h3=":443"; ma=86400
+
+{"id":4,"token":"QpwL5tke4Pnpja7X4"}
+```
+	
+<b>Here, it's super duper important that we specified `"Content-Type: application/json"`.</b>
+	
+<h3>Sending POST Request with a Data File</h3>
+	
+```bash
+url="https://reqres.in/api/register"
+
+curl -X POST -d "@data.json" -H "Content-Type: application/json" --include -o result3.txt ${url}
+```
+
+result3.txt is as follows
+	
+```
+HTTP/2 200 
+date: Tue, 20 Jul 2021 13:26:14 GMT
+content-type: application/json; charset=utf-8
+content-length: 36
+x-powered-by: Express
+access-control-allow-origin: *
+etag: W/"24-4iP0za1geN2he+ohu8F0FhCjLks"
+via: 1.1 vegur
+cf-cache-status: DYNAMIC
+expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=Fs%2BSsDQiJlvvldqakV236qi7PvYOwW165dCy5UszDJ6Nvi5TuJrVLWZJMfANgCPwtNvD3Xh1E8sTU4rb4rA33nlPY9ObyDkyzbWcE5drbC5y4hl8QzBDcMSAoio%3D"}],"group":"cf-nel","max_age":604800}
+nel: {"report_to":"cf-nel","max_age":604800}
+server: cloudflare
+cf-ray: 671c85237eddd423-BUD
+alt-svc: h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400, h3=":443"; ma=86400
+
+{"id":4,"token":"QpwL5tke4Pnpja7X4"}
+```
+
+<h3>Header Information with -I</h3>
+	
+To get the information about headers, we can use `-I` flag
 
 ```bash
 url="http://ipv4.download.thinkbroadband.com:8080/5MB.zip"
@@ -1344,4 +1430,83 @@ curl -I ${url}
 	<img width="450" alt="Screen Shot 2021-07-20 at 12 27 00 PM" src="https://user-images.githubusercontent.com/31994778/126298849-d126ee2a-aa64-40d0-ba77-8612961cc75a.png">
 </p>
 
+<h3>Getting Response Status Code</h3>
+	
+```bash
+url="https://reqres.in/api/register"
 
+curl -I -X POST -d "@data.json" -H "Content-Type: application/json" --include -s -o result3.txt ${url}
+
+cat result3.txt | head -n 1 | cut '-d ' '-f2'
+```	
+
+Here, `head` looks for the first 10 lines of a file. With `-n 1`, we only look at the first line.
+	
+`cut` splits the result with delimeter `-d ` and `-f2` gets the second element inside array.
+	
+```	
+burakhanaksoy@Burakhans-MBP ~/Desktop
+$ ./curl.sh 
+200	
+```	
+	
+<h3>Important Flags</h3>
+
+`-#, --progress-bar`
+        Make curl display a simple progress bar instead of the more informational standard meter.
+
+`-b, --cookie <name=data>`
+        Supply cookie with request. If no `=`, then specifies the cookie file to use (see `-c`).
+
+`-c, --cookie-jar <file name>`
+        File to save response cookies to.
+
+`-d, --data <data>`
+        Send specified data in POST request. Details provided below.
+
+`-f, --fail`
+        Fail silently (don't output HTML error form if returned). 
+
+`-F, --form <name=content>`
+        Submit form data.
+
+`-H, --header <header>`
+        Headers to supply with request.
+
+`-i, --include`
+        Include HTTP headers in the output.
+
+`-I, --head`
+        Fetch headers only.
+
+`-k, --insecure`
+        Allow insecure connections to succeed.
+
+`-L, --location`
+        Follow redirects.
+
+`-o, --output <file>`
+        Write output to <file>. Can use `--create-dirs` in conjunction with this to create any directories
+        specified in the `-o` path.
+
+`-O, --remote-name`
+        Write output to file named like the remote file (only writes to current directory).
+
+`-s, --silent`
+        Silent (quiet) mode. Use with `-S` to force it to show errors.
+
+`-v, --verbose`
+        Provide more information (useful for debugging).
+
+`-w, --write-out <format>`
+        Make curl display information on stdout after a completed transfer. See man page for more details on
+        available variables. Convenient way to force curl to append a newline to output: `-w "\n"` (can add
+        to `~/.curlrc`).
+        
+`-X, --request`
+        The request method to use.
+	
+For more information, [Here](https://gist.github.com/subfuzion/08c5d85437d5d4f00e58)
+	
+---
+	
