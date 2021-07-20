@@ -27,6 +27,7 @@
 [Declare Command](#declare)
 [Arrays](#arrays)
 [Functions](#functions)
+[Files and Directories](#files-and-directories)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -1018,6 +1019,7 @@ myImmutableVar=12
 
 echo $myImmutableVar
 ```
+
 <p align="center">
 <img width="450" alt="Screen Shot 2021-07-18 at 6 18 45 PM" src="https://user-images.githubusercontent.com/31994778/126072618-7af4455e-1929-48f6-934d-4edf9ed772df.png">
 </p>
@@ -1135,3 +1137,148 @@ HONDA MAZDA SUBARU BMW
 <div id="functions">
 <h2>Functions</h2>
 </div>
+
+<h3>Taking Arguments</h3>
+
+```bash
+function add(){
+	local num1=$1
+	local num2=$2
+
+	return $( expr $num1 + $num2 )
+
+}
+
+add 2 5
+result=$?
+
+echo $result
+```
+
+This function does one thing.. It takes 2 arguments, `num1` and `num2` and returns the sum of num1 and num2.
+
+Although the main point is showing that it takes arguments, maybe a more important point would be seeing that we declared `num1` and `num2` as local variables.
+
+<b>We should declare variables local as much as possible. Local declarations are valuable in terms of decreasing code complexity and preventing conflicts in global scope.</b>
+
+
+<h3>Recursive Functions</h3>
+
+Recursion is one of the fundamental programming skills for a software developer. It's name comes from the fact that it calls itself until a base case condition is matched. 
+
+<b>Base case is very important in recursive functions. It determines a condition where the recursion will be put to end. If not coded accurately, it may cause extra calls, which then increases memory usage, making our code less efficient.</b>
+
+<h4>Fibonacci Series with Recursion</h4>
+
+```bash
+fibonacci() {
+    local number=$1
+
+    if [ $number -le 1 ]; then
+        echo 1
+    else
+        echo $(($(fibonacci $(($number - 1))) + $(fibonacci $(($number - 2)))))
+    fi
+}
+
+fibonacci 20
+```
+
+Here, we can see that the function calls itself again and again until `if [ $numer -le 1 ]` condition is met.
+
+<h4>Factorial with Recursion</h4>
+
+```bash
+result=1
+echo "Enter a positive integer"
+read number
+factorial() {
+    local number=$1
+
+    if [ $number -le 1 ]; then
+        return $result
+    else
+        result=$(($result * $number))
+        number=$(($number - 1))
+
+        factorial $number
+
+    fi
+}
+
+factorial $number
+
+echo $?
+```
+
+Here, running this function with `number=5` would return 120.
+
+<h4>Linux's rm -r</h4>
+
+<b>It's important to realize that Linux's own `rm -r <directory name>` command also makes use of recursion. `-r` flag stands for recursion. Here, recursion comes from the fact that everything inside a directory should be recursively removed before the directory itself can be removed.</b>
+	
+As you can see, in recursive functions there's always the idea of function calling itself again and again. There's a funny meme about this.
+
+
+<div align="center">
+<img width="450" src="https://user-images.githubusercontent.com/31994778/126270516-daad786f-46ac-419f-b22f-f354c91a9315.jpeg">
+	
+	Proper base case is important :))
+</div>
+
+---
+
+<div id="files-and-directories">
+<h2>Files and Directories</h2>
+</div>
+
+Creating files, we can use `touch` command.
+
+```bash
+touch myAwesomeFile.txt
+```
+
+Creates `myAwesomeFile.txt` in the current directory.
+
+<div align="center">
+<img width="450" alt="Screen Shot 2021-07-20 at 9 17 47 AM" src="https://user-images.githubusercontent.com/31994778/126271193-3824c129-09b2-47ba-a29b-846fc25eb64f.png">
+</div>
+
+<h3>Checking the Existence of a File</h3>
+
+```bash
+echo "Enter file name"
+read file
+
+if [ -f $file ]; then
+    echo "$file exists"
+else
+    echo "$file doesn't exist"
+fi
+```
+
+<div align="center">
+<img width="450" alt="Screen Shot 2021-07-20 at 9 21 08 AM" src="https://user-images.githubusercontent.com/31994778/126271559-c7519e05-11bc-474d-8f79-bab05dd4dbcc.png">
+</div>
+
+<b>Note that we used `-f` flag, which is used to verify the existence of a file.</b>
+
+<h3>Checking the Existence of a Directory</h3>
+	
+```bash
+echo "Enter a directory name"
+read directory
+
+if [ -d $directory ]; then
+    echo "$directory exists"
+else
+    echo "$directory doesn't exist"
+fi
+```
+	
+<div align="center">
+<img width="450" alt="Screen Shot 2021-07-20 at 9 28 47 AM" src="https://user-images.githubusercontent.com/31994778/126272491-cd4650bb-b522-4536-8666-398ead182373.png">
+</div>
+	
+<b>Note that we used `-d` flag, which is used to verify the existence of a directory.</b>
+	
