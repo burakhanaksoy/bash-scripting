@@ -28,6 +28,7 @@
 [Arrays](#arrays)
 [Functions](#functions)
 [Files and Directories](#files-and-directories)
+[Curl in Scripts](#curl)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -1282,3 +1283,41 @@ fi
 	
 <b>Note that we used `-d` flag, which is used to verify the existence of a directory.</b>
 	
+<h3>Reading From a File</h3>
+
+```bash
+echo "Enter a file name"
+read fileName
+
+if [ -f $fileName ]; then
+    while IFS= read -r line; do
+        echo "$line"
+    done <$fileName
+else
+    echo "$file doesn't exist"
+fi
+```
+
+We have already created a .txt file `lorem_ipsum.txt` with some lorem ipsum content.
+		    
+<div align="center">
+<img width="450" alt="Screen Shot 2021-07-20 at 9 51 51 AM" src="https://user-images.githubusercontent.com/31994778/126275124-ab83ab4d-67c0-469f-85c5-311852e1321e.png">
+</div>
+
+<b>IFS stands for Input Line Separator. </b>
+
+>The IFS variable is used in shells (Bourne, POSIX, ksh, bash) as the input field separator (or internal field separator). Essentially, it is a string of special characters which are to be treated as delimiters between words/fields when splitting a line of input. The default value of IFS is space, tab, newline.
+
+For reference, [Click Here](https://mywiki.wooledge.org/IFS#:~:text=The%20IFS%20variable%20is%20used,is%20space%2C%20tab%2C%20newline.)
+
+---
+
+<div id="curl">
+<h2>Curl in Scripts</h2>
+</div>
+
+<div align="center">
+<img width="450" src="https://user-images.githubusercontent.com/31994778/126278383-e23b51bf-a160-4ede-bd18-f60574fc22ba.jpeg">
+</div>
+
+<b><i>"cURL is a computer software project providing a library and command-line tool for transferring data using various network protocols. The name stands for "Client URL", which was first released in 1997."</b></i>
