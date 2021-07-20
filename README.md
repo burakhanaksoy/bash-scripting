@@ -30,6 +30,7 @@
 [Files and Directories](#files-and-directories)
 [Curl in Scripts](#curl)
 [grep](#grep)
+[awk](#awk)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -1614,5 +1615,9 @@ grep “string” filename --color
 grep –c “string” filename
 ```
 	
-
+---
+	
+<div id="awk">
+<h2>awk</h3>
+</div>
 	
