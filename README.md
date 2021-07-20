@@ -29,6 +29,7 @@
 [Functions](#functions)
 [Files and Directories](#files-and-directories)
 [Curl in Scripts](#curl)
+[grep](#grep)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -1509,4 +1510,89 @@ $ ./curl.sh
 For more information, [Here](https://gist.github.com/subfuzion/08c5d85437d5d4f00e58)
 	
 ---
+	
+<div id="grep">
+<h2>grep</h2>
+</div>
+	
+<b><i>"Grep (global regular expression print) command is the most powerful and regularly used Linux command-line utility. Using Grep, you can search for useful information by specifying a search criteria. It searches for a particular expression pattern in a specified file. When it finds a match, it prints all the lines of a file that matched the specified pattern. It comes in handy when you have to filter through large log files."</b></i>
+	
+<h3>Finding Files with GREP</h3>
+
+Say that I want to find out every file and directory including word "site" inside current directory.
+	
+<div align="center">
+<img width="450" alt="Screen Shot 2021-07-20 at 7 36 18 PM" src="https://user-images.githubusercontent.com/31994778/126362160-96c58901-cd98-40b7-884d-d4fa1e835fca.png">
+</div>
+	
+<b>Here, flag `-i` is for case insensitive search.</b>
+	
+<h3>GREP Inside Files</h3>
+	
+```bash
+$ grep "HTTP" result1.txt 
+HTTP/2 200 
+```
+
+Very good.. We can improve this by
+	
+```bash
+$ grep "HTTP" result1.txt | cut '-d ' '-f2'
+200
+```
+
+As you can see, we directly found out the status code..
+	
+We can also do
+	
+```bash
+$ echo "status code:" $(grep "HTTP" result1.txt | cut '-d ' '-f2')
+status code: 200
+```
+
+I love this :))
+	
+<h3>Search for a String In Multiple Files</h3>
+	
+Say that we directed two API call responses to result1.txt and result3.txt, and now we want to look for status codes inside both of these files.
+	
+```bash
+$ echo "status code:" $(grep "HTTP" result1.txt result3.txt | cut '-d ' '-f2')
+status code: 200 400
+```
+
+Of course this can be improved and printed out in different forms.
+	
+We can also use `*` operator,
+	
+```bash
+$ echo "status code:" $(grep "HTTP" result*.txt | cut '-d ' '-f2')
+status code: 200 200 400
+```
+	
+<h3>Print Particular Number of Lines After/Before the Search String</h3>
+	
+<h4>Syntax (After)</h4>
+
+```bash
+grep -A <N> “string” filename
+```
+	
+<div align="center">
+<img width="450" alt="Screen Shot 2021-07-20 at 8 09 13 PM" src="https://user-images.githubusercontent.com/31994778/126366446-1e9b05dc-fc1a-4f5b-a5e3-46f4f9c2bece.png">
+</div>
+	
+<h4>Syntax (Before)</h4>
+	
+```bash
+grep -B <N> “string” filename
+```
+	
+<h4>Syntax (Around)</h4>
+	
+```bash
+grep -C <N> “string” filename
+```
+	
+<h3>Highlighting the Search</h3>
 	
