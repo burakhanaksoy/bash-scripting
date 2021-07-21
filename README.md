@@ -15,7 +15,7 @@
 [Introduction to Bash Scripting](#intro)
 [cat](#cat)
 [Running Shell Scripts](#running-shell-scripts)
-[comments](#comments)
+[Comments](#comments)
 [Conditional Statements](#conditional-statements)
 [Loops](#loops)
 [Exit Status](#exit)
