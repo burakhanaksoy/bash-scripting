@@ -30,6 +30,7 @@
 [Files and Directories](#files-and-directories)
 [Curl in Scripts](#curl)
 [grep](#grep)
+[Resources](#resources)
 
 <div id="intro">
 <h2>Introduction to Bash Scripting</h2>
@@ -1613,3 +1614,12 @@ grep “string” filename --color
 ```bash
 grep –c “string” filename
 ```
+
+---
+	
+<div id="resources">
+<h2>Resources</h2>	
+</div>
+	
+- https://www.youtube.com/watch?v=e7BufAVwDiM
+- https://linuxhint.com/
